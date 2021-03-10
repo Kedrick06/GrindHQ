@@ -13,12 +13,14 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import SidebarOptions from './SidebarOptions'
 import AddIcon from "@material-ui/icons/Add";
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import { useCollection } from "react-firebase-hooks/firestore";
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 function Sidebar() {
-    const [channels, loading, error] = useCollection (db.collection("rooms"));
+    const [channels] = useCollection (db.collection("rooms"));
+    const [user] = useAuthState(auth);
 
 
 
@@ -29,7 +31,7 @@ function Sidebar() {
                     <h2>Grind HQ</h2>
                     <h3>
                         <FiberManualRecordIcon/>
-                        JAMIL KELLEY
+                        Jamil Kelley
                     </h3>
                 </SidebarInfo>
                 <CreateIcon/>
@@ -50,6 +52,7 @@ function Sidebar() {
 
                 {channels?.docs.map(doc => (
                     <SidebarOptions 
+                    addChannelOption
                     key={doc.id} 
                     id={doc.id}  
                     title={doc.data().name} />
