@@ -31,7 +31,7 @@ function Sidebar() {
                     <h2>Grind HQ</h2>
                     <h3>
                         <FiberManualRecordIcon/>
-                        Jamil Kelley
+                        You're online
                     </h3>
                 </SidebarInfo>
                 <CreateIcon/>
