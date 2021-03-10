@@ -52,7 +52,6 @@ function Sidebar() {
 
                 {channels?.docs.map(doc => (
                     <SidebarOptions 
-                    addChannelOption
                     key={doc.id} 
                     id={doc.id}  
                     title={doc.data().name} />
