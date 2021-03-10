@@ -6,22 +6,23 @@ import firebase from 'firebase';
 
 function ChatInput({channelName, channelId}) {
 
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState('');
+
 
     const sendMessage = (e) => {
-
         e.preventDefault(); //Prevents refresh
 
-        if (channelId) {
+        if (!channelId) {
             return false;
         }
 
-        db.collection('rooms').doc(channelId).collection("messages").add({
+        db.collection("rooms").doc(channelId).collection("messages").add({
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             user: 'Jamil Kelley',
-            userImage:'https://scontent-dfw5-2.xx.fbcdn.net/v/t31.0-8/18953256_10105960431464600_5708052005609415804_o.jpg?_nc_cat=106&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=7Wqg5hY3ZJAAX_ebaQI&_nc_ht=scontent-dfw5-2.xx&oh=bc5f936cb82a2cd66f92c10a1b5f1409&oe=606FD57F',
+            userImage:'https://f4.bcbits.com/img/0005735751_10.jpg'
         });
+
 
         setInput('');
   
@@ -34,8 +35,10 @@ function ChatInput({channelName, channelId}) {
         <ChatInputContainer>
             <form>
                 <input value={input}
-                onChange={(e) => setInput(e.target.value)} placeholder={`Message #ROOM`} />
-                <Button hidden type='submit' onClick={sendMessage}></Button>
+                onChange={(e) => setInput(e.target.value)} 
+                placeholder={`Message #${channelName}`} 
+                />
+                <Button hidden type='submit' onClick={sendMessage}>Send</Button>
             </form>
         </ChatInputContainer>
     )
